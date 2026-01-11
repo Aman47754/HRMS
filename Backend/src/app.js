@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
 
-const authRoutes = require("./routes/auth.routes");
-const employeeRoutes = require("./routes/employee.routes");
-const attendanceRoutes = require("./routes/attendance.routes");
-const leaveRoutes = require("./routes/leave.routes");
-const payrollRoutes = require("./routes/payroll.routes");
+import authRoutes from "./routes/auth.routes.js";
+import employeeRoutes from "./routes/employee.routes.js";
+import attendanceRoutes from "./routes/attendance.routes.js";
+import leaveRoutes from "./routes/leave.routes.js";
+import payrollRoutes from "./routes/payroll.routes.js";
 
 const app = express();
 
@@ -17,6 +17,5 @@ app.use("/api/employees", employeeRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/payroll", payrollRoutes);
-
 
 export default app;

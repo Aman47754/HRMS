@@ -1,32 +1,28 @@
 import mongoose from "mongoose";
 
-const payrollSchema = new mongoose.Schema(
-  {
-    employeeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Employee",
-      required: true
-    },
-    month: {
-      type: String,
-      required: true
-      // example: "2026-01"
-    },
-    grossSalary: {
-      type: Number,
-      required: true
-    },
-    deductions: {
-      type: Number,
-      default: 0
-    },
-    netSalary: {
-      type: Number,
-      required: true
-    }
+const payrollSchema = new mongoose.Schema({
+  employeeId: { type: mongoose.Schema.Types.ObjectId, ref: "Employee" },
+  month: String,
+
+  earnings: {
+    basic: Number,
+    hra: Number,
+    allowances: Number,
+    overtime: Number
   },
-  { timestamps: true }
-);
+
+  deductions: {
+    pf: Number,
+    esi: Number,
+    tds: Number,
+    leave: Number
+  },
+
+  grossSalary: Number,
+  netSalary: Number,
+
+  payslipUrl: String
+});
 
 const Payroll = mongoose.model("Payroll", payrollSchema);
 

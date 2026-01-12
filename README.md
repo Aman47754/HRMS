@@ -135,3 +135,81 @@ MAIL_PASS=your_email_app_password
 npm start
 ```
 
+##### 🔌 API Endpoints
+
+All APIs follow REST principles and are protected using **JWT-based authentication** and **role-based authorization**.
+
+Base URL (Local):http://localhost:4000/api
+
+
+---
+
+## 🔐 Authentication APIs
+
+| Method | Endpoint | Access | Description |
+|------|--------|--------|------------|
+| POST | `/auth/login` | Public | Authenticates a user using email and password and returns a JWT token. |
+| POST | `/auth/register` | HR | Allows HR to create login credentials for an employee and send credentials via email. |
+
+---
+
+## 👥 Employee Management APIs
+
+| Method | Endpoint | Access | Description |
+|------|--------|--------|------------|
+| POST | `/employees` | HR | Creates a new employee profile including department, designation, and salary structure. |
+| GET | `/employees/:id` | HR / Employee (self) | Fetches employee details. Employees can access only their own profile. |
+| GET | `/employees` | HR | Retrieves a list of all employees in the organization. |
+
+---
+
+## 🕒 Attendance Management APIs
+
+| Method | Endpoint | Access | Description |
+|------|--------|--------|------------|
+| POST | `/attendance/mark` | Employee | Allows an employee to mark daily attendance (Present / Absent / Half-day). |
+| GET | `/attendance/my` | Employee | Retrieves attendance history of the logged-in employee. |
+| GET | `/attendance/employee/:id` | HR / Manager | Retrieves attendance records of a specific employee. |
+
+---
+
+## 🏖️ Leave Management APIs
+
+| Method | Endpoint | Access | Description |
+|------|--------|--------|------------|
+| POST | `/leaves/apply` | Employee | Allows an employee to apply for leave by specifying dates and leave type. |
+| GET | `/leaves/my` | Employee | Fetches leave history of the logged-in employee. |
+| GET | `/leaves` | HR / Manager | Retrieves all leave requests submitted by employees. |
+| PATCH | `/leaves/:id/status` | HR / Manager | Approves or rejects a leave request and notifies the employee via email. |
+
+---
+
+## 💰 Payroll Management APIs
+
+| Method | Endpoint | Access | Description |
+|------|--------|--------|------------|
+| POST | `/payroll/process` | HR | Processes monthly payroll for an employee using attendance, leaves, overtime, and deductions. |
+| GET | `/payroll` | HR / Manager | Retrieves payroll records of all employees. |
+| GET | `/payroll/employee/:id` | HR / Manager | Retrieves payroll history of a specific employee. |
+| GET | `/payroll/my` | Employee | Allows an employee to view their own payroll and salary details. |
+
+---
+
+## 📄 Payslip APIs
+
+| Method | Endpoint | Access | Description |
+|------|--------|--------|------------|
+| GET | `/payroll/:id/payslip` | HR / Employee (self) | Downloads the generated payslip PDF for a specific payroll record. |
+
+> Payslips are generated as **PDF files** and sent to employees via **email attachment** during payroll processing.
+
+---
+
+## 🔐 Authentication & Authorization Notes
+
+- All protected routes require a valid **JWT token** in the request header:
+```http
+Authorization: Bearer <JWT_TOKEN>
+
+
+
